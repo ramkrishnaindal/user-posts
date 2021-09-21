@@ -1,0 +1,30 @@
+.parentContainer{
+    width:100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:40%;
+    height:auto;
+    
+}
+.inputCOntainer{
+    display: flex;
+    justify-content: space-between; 
+}
+.input, .inputCOntainer label {
+    padding:10px;
+    margin: 10px;
+}
+.inputCOntainer label {
+    color:white;
+}
+.input{
+    border-radius: 5px;
+    outline: none;
+}

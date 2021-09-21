@@ -1,7 +1,7 @@
 {
   "name": "user-posts",
   "version": "0.1.0",
-  "private": true,
+  "private": true,  
   "dependencies": {
     "cra-template": "1.1.2",
     "firebase": "^9.0.2",
@@ -33,5 +33,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
   }
 }

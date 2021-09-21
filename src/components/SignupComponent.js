@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Card from "./UI/Card";
 import classes from "./SignupComponent.module.css";
 import Input from "./UI/Input";
 import Button from "./UI/Button";
-import { signUp } from "../shared/firebase";
+
+import AppContext from '../context/app-context';
+
+
 const SignUpComponent = () => {
   const [email, setEmail] = useState("");
+  const history=useHistory();
   const [password, setPassword] = useState("");
+  const ctx=useContext(AppContext);
   const submitHandler = async (event) => {
     event.preventDefault();
     
-    const user= await signUp(email,password);
-    console.log(user)
+    ctx.signUp(email,password);
+    history.replace("/");
   };
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);

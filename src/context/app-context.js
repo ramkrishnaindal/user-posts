@@ -1,11 +1,13 @@
 import { createContext,useState,useEffect } from "react";
-import { logIn,signOff } from "../shared/firebase";
+import { logIn,signOff,signUp } from "../shared/firebase";
+
 
 const initialState={
     isLoggedIn:false,    
     token:'',
     uid:'',
     login:(email,password)=>{},
+    signup:(email,password)=>{},
     signOff:()=>{}
 }
 const ctx=createContext(initialState);
@@ -34,6 +36,12 @@ export const AppProvider=(props)=>{
         setIdToken(user.accessToken);
         setIdUid(user.uid);
     }
+    const signUpHandler=async(email,password)=>{
+        const user= await signUp(email,password);
+        setLoggedIn(true);
+        setIdToken(user.accessToken);
+        setIdUid(user.uid);
+    }
     const signOffHandler=async()=>{
         await signOff();
         setLoggedIn(false);
@@ -42,6 +50,7 @@ export const AppProvider=(props)=>{
     return <Provider value={{
         isLoggedIn:loggedIn,
         login:loginHandler,
+        signUp:signUpHandler,
         token:idToken,
         uid:uid,
         signOff:signOffHandler

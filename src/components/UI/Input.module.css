@@ -1,0 +1,17 @@
+.inputContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;    
+}
+.input, .inputContainer label {
+    padding:10px;
+    margin: 10px;
+}
+.inputContainer label {
+    color:white;
+}
+.input{
+    border-radius: 5px;
+    outline: none;
+}

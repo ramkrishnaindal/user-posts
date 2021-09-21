@@ -1,11 +1,11 @@
 import React from 'react'
-import SignupComponent from '../components/SignupComponent'
+import LoginComponent from './../components/LoginComponent';
 
 
 const Login = () => {
     return (
         
-        <SignupComponent/>
+        <LoginComponent/>
         
     )
 }

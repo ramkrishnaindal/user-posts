@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Card from "./UI/Card";
 import classes from "./SignupComponent.module.css";
 import Input from "./UI/Input";
 import Button from "./UI/Button";
-import { signUp } from "../shared/firebase";
-const SignUpComponent = () => {
+import AppContext from '../context/app-context'
+const LoginComponent = () => {
   const [email, setEmail] = useState("");
+  const history=useHistory();
+  const ctx=useContext(AppContext);
   const [password, setPassword] = useState("");
   const submitHandler = async (event) => {
     event.preventDefault();
     
-    const user= await signUp(email,password);
-    console.log(user)
+    // const user= await logIn(email,password);
+    // console.log(user);
+    ctx.login(email,password);
+    history.replace("/");
   };
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
@@ -20,10 +25,12 @@ const SignUpComponent = () => {
   const passwordChangeHandler = (event) => {
     setPassword(event.target.value);
   };
+  const signUpHandler = () => {};
+  const cancelHandler = () => {};
   return (
     <div className={classes.content}>
       <Card className={classes.title}>
-        <h1> Sign Up</h1>
+        <h1> Login</h1>
       </Card>
       <div className={classes.parentContainer}>
         <Card
@@ -54,8 +61,8 @@ const SignUpComponent = () => {
               />
             </div>
             <div className={classes.actions}>
-              <Button title="Sign up" onClick={()=>{}} style={{marginRight:"10px"}} />
-              <Button title="Cancel" onClick={()=>{}} style={{marginRight:"10px"}} />
+              <Button title="Login" onClick={signUpHandler} style={{marginRight:"10px"}} />
+              <Button title="Cancel" onClick={cancelHandler} style={{marginRight:"10px"}} />
             </div>
           </form>
         </Card>
@@ -64,4 +71,4 @@ const SignUpComponent = () => {
   );
 };
 
-export default SignUpComponent;
+export default LoginComponent;

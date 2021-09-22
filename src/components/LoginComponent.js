@@ -1,21 +1,24 @@
-import React, { useState,useContext } from "react";
-
+import React, { useState, useContext } from "react";
 import Card from "./UI/Card";
 import classes from "./SignupComponent.module.css";
 import Input from "./UI/Input";
 import Button from "./UI/Button";
-import AppContext from '../context/app-context'
+import AppContext from "../context/app-context";
+import { useHistory } from "react-router-dom";
+
 const LoginComponent = () => {
+  const history = useHistory();
   const [email, setEmail] = useState("");
-  const ctx=useContext(AppContext);
+  const ctx = useContext(AppContext);
   const [password, setPassword] = useState("");
   const submitHandler = async (event) => {
     event.preventDefault();
-    
+
     // const user= await logIn(email,password);
     // console.log(user);
-    ctx.login(email,password);
-    
+    const user = ctx.login(email, password);
+    debugger;
+    if (user) history.replace("/");
   };
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
@@ -60,8 +63,16 @@ const LoginComponent = () => {
               />
             </div>
             <div className={classes.actions}>
-              <Button title="Login" onClick={signUpHandler} style={{marginRight:"10px"}} />
-              <Button title="Cancel" onClick={cancelHandler} style={{marginRight:"10px"}} />
+              <Button
+                title="Login"
+                onClick={signUpHandler}
+                style={{ marginRight: "10px" }}
+              />
+              <Button
+                title="Cancel"
+                onClick={cancelHandler}
+                style={{ marginRight: "10px" }}
+              />
             </div>
           </form>
         </Card>

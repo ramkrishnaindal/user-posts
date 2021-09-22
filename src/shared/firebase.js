@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -59,6 +60,7 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 export const signUp = async (email, password) => {
+  
   try {
     const auth = getAuth();
     const userCredential = await createUserWithEmailAndPassword(
@@ -66,12 +68,15 @@ export const signUp = async (email, password) => {
       email,
       password
     );
+    
     return userCredential.user;
+    
   } catch (error) {
     return error;
   }
 };
 export const logIn = async (email, password) => {
+  
   try {
     const auth = getAuth();
     const userCredential = await signInWithEmailAndPassword(
@@ -79,7 +84,7 @@ export const logIn = async (email, password) => {
       email,
       password
     );
-    debugger;
+  
     return userCredential.user;
   } catch (error) {
     debugger;

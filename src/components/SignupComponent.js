@@ -1,5 +1,5 @@
 import React, { useState,useContext } from "react";
-
+import { useHistory } from "react-router-dom";
 import Card from "./UI/Card";
 import classes from "./SignupComponent.module.css";
 import Input from "./UI/Input";
@@ -10,12 +10,14 @@ import AppContext from '../context/app-context';
 
 const SignUpComponent = () => {
   const [email, setEmail] = useState("");
+  const history = useHistory();
   const [password, setPassword] = useState("");
   const ctx=useContext(AppContext);
   const submitHandler = async (event) => {
     event.preventDefault();
     
-    ctx.signUp(email,password);
+    const user=ctx.signUp(email,password);
+    if (user) history.replace("/");
   };
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);

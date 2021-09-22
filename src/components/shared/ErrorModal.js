@@ -8,7 +8,7 @@ const ErrorModal = (props) => {
   const ctx = useContext(AppContext);
   const { error } = ctx;
   return(
-   error ? (
+    error && error.message ? (
       <>
         <Backdrop onClose={props.onClose} />
         <Modal

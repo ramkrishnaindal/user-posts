@@ -1,6 +1,5 @@
 import { createContext,useState,useEffect } from "react";
 import { logIn,signOff,signUp } from "../shared/firebase";
-import { useHistory } from 'react-router-dom';
 
 const initialState={
     isLoggedIn:false,    
@@ -15,7 +14,6 @@ const initialState={
 const ctx=createContext(initialState);
 const Provider=ctx.Provider;
 export const AppProvider=(props)=>{
-    const history=useHistory();
     useEffect(()=>{
         const tokenld = localStorage.getItem("user_token");
         if(tokenld){
@@ -38,24 +36,26 @@ export const AppProvider=(props)=>{
         const result= await logIn(email,password);
         if(!result.code)
         {
-            history.replace("/");
             setLoggedIn(true);
             setIdToken(result.accessToken);
             setIdUid(result.uid);
+            return result;
         }else{
             setError(result);
+            return;
         }
     }
     const signUpHandler=async(email,password)=>{
         const result= await signUp(email,password);        
         if(!result.code)
         {
-            history.replace("/");
             setLoggedIn(true);
             setIdToken(result.accessToken);
             setIdUid(result.uid);
+            return result;
         }else{
             setError(result);
+            return;
         }
     }
     const signOffHandler=async()=>{

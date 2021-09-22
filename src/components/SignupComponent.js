@@ -16,7 +16,7 @@ const SignUpComponent = () => {
   const submitHandler = async (event) => {
     event.preventDefault();
     
-    const user=ctx.signUp(email,password);
+    const user=await ctx.signUp(email,password);
     if (user) history.replace("/");
   };
   const emailChangeHandler = (event) => {
@@ -61,7 +61,10 @@ const SignUpComponent = () => {
             </div>
             <div className={classes.actions}>
               <Button title="Sign up" onClick={()=>{}} style={{marginRight:"10px"}} />
-              <Button title="Cancel" onClick={()=>{}} style={{marginRight:"10px"}} />
+              <Button title="Cancel" onClick={()=>{
+                ctx.clearError();
+                history.replace("/");
+              }} style={{marginRight:"10px"}} />
             </div>
           </form>
         </Card>

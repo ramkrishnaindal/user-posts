@@ -16,7 +16,7 @@ const LoginComponent = () => {
 
     // const user= await logIn(email,password);
     // console.log(user);
-    const user = ctx.login(email, password);
+    const user = await ctx.login(email, password);
     debugger;
     if (user) history.replace("/");
   };
@@ -27,8 +27,9 @@ const LoginComponent = () => {
   const passwordChangeHandler = (event) => {
     setPassword(event.target.value);
   };
-  const signUpHandler = () => {};
-  const cancelHandler = () => {};
+  const cancelHandler = () => {
+    history.replace("/");
+  };
   return (
     <div className={classes.content}>
       <Card className={classes.title}>
@@ -65,11 +66,12 @@ const LoginComponent = () => {
             <div className={classes.actions}>
               <Button
                 title="Login"
-                onClick={signUpHandler}
+                onClick={()=>{}}
                 style={{ marginRight: "10px" }}
               />
               <Button
                 title="Cancel"
+                type="button"
                 onClick={cancelHandler}
                 style={{ marginRight: "10px" }}
               />

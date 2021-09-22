@@ -15,22 +15,20 @@ const ErrorModal = (props) => {
           header={
             <h1
               style={{
-                color: "red",
+                color: "white",
                 fontWeight: "bold",
                 padding: "5px",
-                backgroundColor: "rgb(226, 244, 245)",
-                width: "100%",
+                width: "100%"                
               }}
             >
               Some error occurred
             </h1>
           }
           actions={<Button title="Close" onClick={props.onClose} style={{fontWeight:"bold"}}/>}
-          headerStyle={{ border: "2px solid red" }}
-          bodyStyle={{ color: "red", border: "1px solid red" }}
+          bodyStyle={{ color: "red"}}
           onClose={props.onClose}
         >
-          <p>{error.message.replace(/Firebase:/g, '')}</p>
+          <p style={{backgroundColor:"white",padding:"10px",borderRadius:"5px",border:"2px solid black"}}>{error.message.replace(/Firebase:/g, '')}</p>
         </Modal>
       </>
     ):null

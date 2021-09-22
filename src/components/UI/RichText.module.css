@@ -1,0 +1,12 @@
+.editor{
+    
+    flex: 1;
+    overflow: hidden;
+    padding: 5px;
+}
+.wrapper{
+    background-color: snow;
+    display:flex;
+    flex-direction:column;
+    height:50vh;
+}

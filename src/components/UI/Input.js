@@ -7,7 +7,9 @@ const Input = (props) => {
         inputConst=<input style={{...props.style}} id ={props.id} className={classNames}  name={props.name} ref={props.inputRef} {...props}/>;
     return (
         <div className={classes.inputContainer}>
+        <div style={{display:'flex',justifyContent:"flex-end",flex:1}}>
         <label htmlFor={props.id} >{props.title}</label>
+        </div>
         {inputConst}
         </div>
     )

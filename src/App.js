@@ -9,6 +9,7 @@ import AppContext from './context/app-context';
 import EditPost from './pages/EditPost';
 import Layout from './components/shared/Layout';
 import ErrorModal from './components/shared/ErrorModal';
+import Container from './components/shared/Container';
 function App() {
   const ctx=useContext(AppContext);
   const loggedInRoutes=ctx.isLoggedIn?<>
@@ -22,7 +23,9 @@ function App() {
   return (
     <>
     <ErrorModal onClose={()=>ctx.clearError()}/>
+    <div style={{display:"flex",flexDirection:"column",height:"100vh"}}>
     <Layout title="User Posts" imageUrl={process.env.PUBLIC_URL + '/blog.jfif'} />
+    <Container>
     <Switch>
       <Route path="/" exact>
         <Redirect to="/posts"/>
@@ -41,6 +44,8 @@ function App() {
         <Redirect to="/posts"/>
       </Route>
     </Switch>
+    </Container>
+    </div>
     </>
   );
 }

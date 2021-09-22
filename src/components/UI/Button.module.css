@@ -4,4 +4,7 @@
     color:  rgb(17, 65, 114);
     border-radius: 5px;
     outline: none;
+    width:6rem;
+    font-weight: bold;
+    cursor: pointer;
 }

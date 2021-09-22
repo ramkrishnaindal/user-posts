@@ -3,7 +3,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    flex: 1;
 }
 .title{
     width: 40vw;
@@ -18,8 +18,7 @@ h1{
     text-shadow: 2px 2px grey;
 }
 .parentContainer{
-    width:100vw;
-    height: 60vh;
+    width:100vw;    
     display: flex;
     align-items: flex-start;
     align-content: center;
@@ -33,15 +32,18 @@ h1{
     height:auto;
     
 }
-.inputCOntainer{
+form{
+    width:100%;
+}
+.inputContainer{
     display: flex;
     justify-content: space-between; 
 }
-.input, .inputCOntainer label {
-    padding:10px;
+.input, .inputContainer label {
+    padding:10px;    
     margin: 10px;
 }
-.inputCOntainer label {
+.inputContainer label {
     color:rgb(35, 57, 61);
 }
 .input{

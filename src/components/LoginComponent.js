@@ -28,7 +28,9 @@ const LoginComponent = () => {
     setPassword(event.target.value);
   };
   const cancelHandler = () => {
+    ctx.clearError();
     history.replace("/");
+
   };
   return (
     <div className={classes.content}>
@@ -38,31 +40,28 @@ const LoginComponent = () => {
       <div className={classes.parentContainer}>
         <Card
           className={classes.container}
-          style={{ paddingTop: "20px", paddingBottom: "20px" }}
+          style={{paddingBottom: "20px" }}
         >
           <form onSubmit={submitHandler}>
-            <div className={classes.inputCOntainer}>
-              <label htmlFor="email">E Mail</label>
+              
               <Input
                 id="email"
                 type="email"
                 placeholder="E Mail"
                 onChange={emailChangeHandler}
                 value={email}
+                title="E Mail"
                 required
               />
-            </div>
-            <div className={classes.inputCOntainer}>
-              <label htmlFor="password">Password</label>
               <Input
                 id="email"
                 type="password"
                 placeholder="Password"
+                title="Password"
                 onChange={passwordChangeHandler}
                 value={password}
                 required
               />
-            </div>
             <div className={classes.actions}>
               <Button
                 title="Login"

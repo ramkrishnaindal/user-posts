@@ -34,28 +34,30 @@ const SignUpComponent = () => {
       <div className={classes.parentContainer}>
         <Card
           className={classes.container}
-          style={{ paddingTop: "20px", paddingBottom: "20px" }}
+          style={{ paddingBottom: "20px" }}
         >
           <form onSubmit={submitHandler}>
-            <div className={classes.inputCOntainer}>
-              <label htmlFor="email">E Mail</label>
+            <div className={classes.inputContainer}>
+              
               <Input
                 id="email"
                 type="email"
                 placeholder="E Mail"
                 onChange={emailChangeHandler}
                 value={email}
+                title="E Mail"
                 required
               />
             </div>
-            <div className={classes.inputCOntainer}>
-              <label htmlFor="password">Password</label>
+            <div className={classes.inputContainer}>
+              
               <Input
                 id="email"
                 type="password"
                 placeholder="Password"
                 onChange={passwordChangeHandler}
                 value={password}
+                title="Password"
                 required
               />
             </div>

@@ -1,5 +1,5 @@
 import React, { useState,useContext } from "react";
-import { useHistory } from "react-router-dom";
+
 import Card from "./UI/Card";
 import classes from "./SignupComponent.module.css";
 import Input from "./UI/Input";
@@ -7,7 +7,6 @@ import Button from "./UI/Button";
 import AppContext from '../context/app-context'
 const LoginComponent = () => {
   const [email, setEmail] = useState("");
-  const history=useHistory();
   const ctx=useContext(AppContext);
   const [password, setPassword] = useState("");
   const submitHandler = async (event) => {
@@ -16,7 +15,7 @@ const LoginComponent = () => {
     // const user= await logIn(email,password);
     // console.log(user);
     ctx.login(email,password);
-    history.replace("/");
+    
   };
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);

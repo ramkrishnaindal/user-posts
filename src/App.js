@@ -8,7 +8,7 @@ import AddNewPosts from './pages/AddNewPost'
 import AppContext from './context/app-context';
 import EditPost from './pages/EditPost';
 import Layout from './components/shared/Layout';
-
+import ErrorModal from './components/shared/ErrorModal';
 function App() {
   const ctx=useContext(AppContext);
   const loggedInRoutes=ctx.isLoggedIn?<>
@@ -21,9 +21,11 @@ function App() {
   </>:null;
   return (
     <>
+    <ErrorModal onClose={()=>ctx.clearError()}/>
     <Layout title="User Posts" imageUrl={process.env.PUBLIC_URL + '/blog.jfif'} />
     <Switch>
       <Route path="/" exact>
+        <Redirect to="/posts"/>
       </Route>
       <Route path="/signup">
         <Signup/>
@@ -31,12 +33,12 @@ function App() {
       <Route path="/login">
         <Login/>
       </Route>
-      <Route path="/posts">
+      <Route path="/posts" exact>
         <AllPosts/>
       </Route>
       {loggedInRoutes}
       <Route path="**">
-        <Redirect to="/"/>
+        <Redirect to="/posts"/>
       </Route>
     </Switch>
     </>

@@ -68,7 +68,7 @@ export const signUp = async (email, password) => {
     );
     return userCredential.user;
   } catch (error) {
-    console.log(error.code, error.message);
+    return error;
   }
 };
 export const logIn = async (email, password) => {
@@ -79,9 +79,12 @@ export const logIn = async (email, password) => {
       email,
       password
     );
+    debugger;
     return userCredential.user;
   } catch (error) {
+    debugger;
     console.log(error.code, error.message);
+    return error;
   }
 };
 export const signOff = async (email, password) => {

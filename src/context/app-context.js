@@ -1,18 +1,21 @@
 import { createContext,useState,useEffect } from "react";
 import { logIn,signOff,signUp } from "../shared/firebase";
-
+import { useHistory } from 'react-router-dom';
 
 const initialState={
     isLoggedIn:false,    
     token:'',
     uid:'',
+    error:{code:'',message:''},
     login:(email,password)=>{},
     signup:(email,password)=>{},
-    signOff:()=>{}
+    signOff:()=>{},
+    clearError:()=>{}
 }
 const ctx=createContext(initialState);
 const Provider=ctx.Provider;
 export const AppProvider=(props)=>{
+    const history=useHistory();
     useEffect(()=>{
         const tokenld = localStorage.getItem("user_token");
         if(tokenld){
@@ -30,17 +33,30 @@ export const AppProvider=(props)=>{
     const [loggedIn, setLoggedIn] = useState(false);
     const [idToken, setIdToken] = useState('');
     const [uid, setIdUid] = useState('');
+    const [error, setError] = useState();
     const loginHandler=async(email,password)=>{
-        const user= await logIn(email,password);
-        setLoggedIn(true);
-        setIdToken(user.accessToken);
-        setIdUid(user.uid);
+        const result= await logIn(email,password);
+        if(!result.code)
+        {
+            history.replace("/");
+            setLoggedIn(true);
+            setIdToken(result.accessToken);
+            setIdUid(result.uid);
+        }else{
+            setError(result);
+        }
     }
     const signUpHandler=async(email,password)=>{
-        const user= await signUp(email,password);
-        setLoggedIn(true);
-        setIdToken(user.accessToken);
-        setIdUid(user.uid);
+        const result= await signUp(email,password);        
+        if(!result.code)
+        {
+            history.replace("/");
+            setLoggedIn(true);
+            setIdToken(result.accessToken);
+            setIdUid(result.uid);
+        }else{
+            setError(result);
+        }
     }
     const signOffHandler=async()=>{
         await signOff();
@@ -53,7 +69,9 @@ export const AppProvider=(props)=>{
         signUp:signUpHandler,
         token:idToken,
         uid:uid,
-        signOff:signOffHandler
+        error,
+        signOff:signOffHandler,
+        clearError:()=>{setError(null)}
     }}>{props.children}</Provider>;
 }
 export default ctx;

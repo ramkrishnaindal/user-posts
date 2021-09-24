@@ -5,10 +5,12 @@ import Input from "./UI/Input";
 import Button from "./UI/Button";
 import Card from "./UI/Card";
 import { useHistory } from "react-router-dom";
+import AutoComplete from "./UI/AutoComplete";
 const AddPost = () => {
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
+  const [tags, setTags] = useState([]);
   const ctx = useContext(AppContext);
   const titleChangeHandler = (event) => {
     setTitle(event.target.value);
@@ -30,7 +32,9 @@ const AddPost = () => {
     ctx.clearError();
     history.replace("/");
   };
-
+  const tagChangeHandler=(tags)=>{
+    setTags(tags);
+  }
   return (
     <div className={classes.content}>
       <Card className={classes.title}>
@@ -39,6 +43,12 @@ const AddPost = () => {
       <div className={classes.parentContainer}>
         <Card className={classes.container} style={{ paddingBottom: "20px" }}>
           <form onSubmit={submitHandler}>
+            <AutoComplete tagChanged={tagChangeHandler} title="Select Categories" tags={[
+        { id: 3, name: "English" }]} suggestions={[
+        { id: 3, name: "English" },
+        { id: 4, name: "Spain" },
+        { id: 5, name: "Italy" }
+      ]}/>
             <Input
               id="text"
               type="text"

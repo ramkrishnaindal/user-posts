@@ -5,12 +5,8 @@ import RichText from './../components/UI/RichText';
 
 
 const AllPosts = () => {
-    
-    
-
     return (
-           
-           <AddPost/>
+        <AddPost/>
     )
 }
 

@@ -18,7 +18,7 @@ h1{
     text-shadow: 2px 2px grey;
 }
 .parentContainer{
-    width:100vw;    
+    width:98vw;    
     display: flex;
     align-items: flex-start;
     align-content: center;
@@ -38,6 +38,11 @@ form{
 .inputContainer{
     display: flex;
     justify-content: space-between; 
+}
+.imageContainer{
+    display: flex;
+    justify-content: center; 
+    overflow: hidden;
 }
 .input, .inputContainer label {
     padding:10px;    

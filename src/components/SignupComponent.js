@@ -1,26 +1,70 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Card from "./UI/Card";
 import classes from "./SignupComponent.module.css";
 import Input from "./UI/Input";
 import Button from "./UI/Button";
 
-import AppContext from '../context/app-context';
-
+import AppContext from "../context/app-context";
+import ImageUpload from "./UI/ImageUpload";
+import {
+  uploadPicture,
+  addProfileData,
+  updateProfileData,
+} from "../shared/firebase";
 
 const SignUpComponent = () => {
   const [email, setEmail] = useState("");
+  const [file, setFile] = useState();
+  
   const history = useHistory();
   const [password, setPassword] = useState("");
-  const ctx=useContext(AppContext);
+  const [name, setName] = useState("");
+  // const [imageUrl, setImageUrl] = useState("");
+  const ctx = useContext(AppContext);
+  const onFileReceivedHandler = (file) => {
+    setFile(file);
+  };
   const submitHandler = async (event) => {
     event.preventDefault();
-    
-    const user=await ctx.signUp(email,password);
-    if (user) history.replace("/");
+    let user;
+    try {
+      user = await ctx.signUp(email, password);
+    } catch (error) {
+      ctx.callSetError(error);
+      return;
+    }
+    try {
+      await addProfileData(user.uid, { name });
+    } catch (error) {
+      ctx.callSetError(error);
+      if (user) history.replace("/");
+      return;
+    }
+    let profileImageUrl;
+    try {
+      profileImageUrl = await uploadPicture(file, `${user.uid}/images`);
+      // setImageUrl(profileImageUrl);
+    } catch (error) {
+      ctx.callSetError(error);
+      if (user) history.replace("/");
+      return;
+    }
+    if (profileImageUrl) {
+      try {
+        await updateProfileData(user.uid, { profileImageUrl });
+        if (user) history.replace("/");
+      } catch (error) {
+        ctx.callSetError(error);
+        if (user) history.replace("/");
+      }
+    }
   };
   const emailChangeHandler = (event) => {
     setEmail(event.target.value);
+  };
+  const nameChangeHandler = (event) => {
+    setName(event.target.value);
   };
 
   const passwordChangeHandler = (event) => {
@@ -32,13 +76,20 @@ const SignUpComponent = () => {
         <h1> Sign Up</h1>
       </Card>
       <div className={classes.parentContainer}>
-        <Card
-          className={classes.container}
-          style={{ paddingBottom: "20px" }}
-        >
+        <Card className={classes.container} style={{ paddingBottom: "20px" }}>
           <form onSubmit={submitHandler}>
             <div className={classes.inputContainer}>
-              
+              <Input
+                id="name"
+                type="name"
+                placeholder="Name"
+                onChange={nameChangeHandler}
+                value={name}
+                title="Name"
+                required
+              />
+            </div>
+            <div className={classes.inputContainer}>
               <Input
                 id="email"
                 type="email"
@@ -50,9 +101,8 @@ const SignUpComponent = () => {
               />
             </div>
             <div className={classes.inputContainer}>
-              
               <Input
-                id="email"
+                id="password"
                 type="password"
                 placeholder="Password"
                 onChange={passwordChangeHandler}
@@ -61,12 +111,26 @@ const SignUpComponent = () => {
                 required
               />
             </div>
+            <div className={classes.imageContainer}>
+              <ImageUpload
+                imageTitle="Profile image"
+                onFileReceived={onFileReceivedHandler}
+              />
+            </div>
             <div className={classes.actions}>
-              <Button title="Sign up" onClick={()=>{}} style={{marginRight:"10px"}} />
-              <Button title="Cancel" onClick={()=>{
-                ctx.clearError();
-                history.replace("/");
-              }} style={{marginRight:"10px"}} />
+              <Button
+                title="Sign up"
+                onClick={() => {}}
+                style={{ marginRight: "10px" }}
+              />
+              <Button
+                title="Cancel"
+                onClick={() => {
+                  ctx.clearError();
+                  history.replace("/");
+                }}
+                style={{ marginRight: "10px" }}
+              />
             </div>
           </form>
         </Card>

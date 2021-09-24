@@ -1,6 +1,12 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+import { getFirestore,doc, collection, getDocs ,setDoc,updateDoc } from "firebase/firestore";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 
 import {
   getAuth,
@@ -26,7 +32,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);
-
+export async function addProfileData(id,data){
+  debugger;
+  await setDoc(doc(db, "users", id),data);
+}
+export async function updateProfileData(id,data){
+  debugger;
+  await updateDoc(doc(db, "users", id),data);
+}
 // Get a list of cities from your database
 export async function getPosts(db) {
   const postsCol = collection(db, "posts");
@@ -60,7 +73,6 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 export const signUp = async (email, password) => {
-  
   try {
     const auth = getAuth();
     const userCredential = await createUserWithEmailAndPassword(
@@ -68,15 +80,76 @@ export const signUp = async (email, password) => {
       email,
       password
     );
-    
+
     return userCredential.user;
-    
   } catch (error) {
     return error;
   }
 };
+export const uploadPicture = async (file, pathToFileDirectory) => {
+  debugger;
+  return new Promise(function (resolve, reject) {
+    if (file == null) return;
+    const storage = getStorage();
+    const fileExt=file.name.split('.')[(file.name+"").split('.').length-1]
+    const storageRef = ref(storage, `${pathToFileDirectory}/${file.name}`);
+    // const storageRef = ref(storage, "images/" + file.name);
+    const metadata = {
+      contentType: `image/${fileExt}`,
+    };
+
+    const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+    // const uploadTask = uploadBytes(storageRef, file, metadata);
+    // Listen for state changes, errors, and completion of the upload.
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+        }
+      },
+      (error) => {
+        // A full list of error codes is available at
+        // https://firebase.google.com/docs/storage/web/handle-errors
+        switch (error.code) {
+          case "storage/unauthorized":
+            // User doesn't have permission to access the object
+            reject(error);
+            break;
+          case "storage/canceled":
+            // User canceled the upload
+            reject(error);
+            break;
+
+          // ...
+
+          case "storage/unknown":
+            // Unknown error occurred, inspect error.serverResponse
+            reject(error);
+            break;
+        }
+      },
+      () => {
+        // Upload completed successfully, now we can get the download URL
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          console.log("File available at", downloadURL);
+          resolve(downloadURL);
+        });
+      }
+    );
+  });
+  // .on("state_changed" , alert("success") , alert);
+};
 export const logIn = async (email, password) => {
-  
   try {
     const auth = getAuth();
     const userCredential = await signInWithEmailAndPassword(
@@ -84,7 +157,7 @@ export const logIn = async (email, password) => {
       email,
       password
     );
-  
+
     return userCredential.user;
   } catch (error) {
     debugger;
@@ -93,14 +166,10 @@ export const logIn = async (email, password) => {
   }
 };
 export const signOff = async (email, password) => {
-    try {
-      const auth = getAuth();
-      await signOut(
-        auth
-      );
-      
-    } catch (error) {
-      console.log(error.code, error.message);
-    }
-  };
-  
+  try {
+    const auth = getAuth();
+    await signOut(auth);
+  } catch (error) {
+    console.log(error.code, error.message);
+  }
+};

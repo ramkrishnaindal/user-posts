@@ -1,12 +1,11 @@
 import React from 'react'
-import AddPost from '../components/AddPost'
-import RichText from './../components/UI/RichText';
-
+import Posts from './../components/Posts';
 
 
 const AllPosts = () => {
+    debugger;
     return (
-        <AddPost/>
+        <Posts/>
     )
 }
 

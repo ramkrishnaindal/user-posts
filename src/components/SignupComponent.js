@@ -86,6 +86,7 @@ const SignUpComponent = () => {
                 onChange={nameChangeHandler}
                 value={name}
                 title="Name"
+                inputContainerLabelStyle={{paddingTop:"10px"}}
                 required
               />
             </div>
@@ -97,6 +98,7 @@ const SignUpComponent = () => {
                 onChange={emailChangeHandler}
                 value={email}
                 title="E Mail"
+                inputContainerLabelStyle={{paddingTop:"10px"}}
                 required
               />
             </div>

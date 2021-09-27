@@ -1,12 +1,23 @@
-.editor{
-    
-    flex: 1;
-    overflow: hidden;
-    padding: 5px;
+.editor {
+  flex: 1;
+  overflow: hidden;
+  padding:0 5px;
 }
-.wrapper{
-    background-color: snow;
-    display:flex;
-    flex-direction:column;
-    height:50vh;
+.DraftEditor-root{
+    top:-20px;
+}
+.wrapper {
+  background-color: snow;
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+}
+.richTextContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; 
+    justify-content: flex-start;
+    padding: 5px 20px;
+    margin: 10px;
+    /* width: 85%; */
 }

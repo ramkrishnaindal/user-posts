@@ -33,6 +33,11 @@ export const AppProvider=(props)=>{
     const [idToken, setIdToken] = useState('');
     const [uid, setIdUid] = useState('');
     const [error, setError] = useState();
+    useEffect(()=>{
+        localStorage.setItem("user_token", idToken);
+        localStorage.setItem("user_id", uid);    
+    },[idToken]);
+
     const loginHandler=async(email,password)=>{
         const result= await logIn(email,password);
         if(!result.code)

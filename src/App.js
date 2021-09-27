@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext,useEffect } from 'react';
 import './App.css';
 import Signup from './pages/SignUp';
 import {Route, Switch,Redirect} from 'react-router-dom';
@@ -10,7 +10,29 @@ import EditPost from './pages/EditPost';
 import Layout from './components/shared/Layout';
 import ErrorModal from './components/shared/ErrorModal';
 import Container from './components/shared/Container';
-function App() {
+import {getCategories,getUsers,getUsersPosts} from './shared/firebase';
+import {useDispatch} from 'react-redux';
+import {storeActions} from './store/store'
+function App() {  
+  const dispatch = useDispatch();
+  useEffect(()=>{      
+    const getCat=async()=>{
+      const cat=await getCategories();
+      dispatch(storeActions.loadCategories(cat))
+    }
+    const getUsersData=async()=>{  
+      debugger;    
+      const users=await getUsers();
+      dispatch(storeActions.loadUsers(users))
+      for(const user of users){
+        const posts=await getUsersPosts(user.id);
+        dispatch(storeActions.loadPosts(posts.map(post=>{return {uid:user.id,...post}})))
+      }
+      
+    }
+    getCat();
+    getUsersData();
+  },[dispatch]);
   const ctx=useContext(AppContext);
   const loggedInRoutes=ctx.isLoggedIn?<>
   <Route path="/posts/newPost">

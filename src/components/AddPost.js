@@ -6,35 +6,78 @@ import Button from "./UI/Button";
 import Card from "./UI/Card";
 import { useHistory } from "react-router-dom";
 import AutoComplete from "./UI/AutoComplete";
+import RichText from "./UI/RichText";
+import { addCategory, addPost,getCategories } from "../shared/firebase";
+import { encodeStr } from "../shared/utilities";
 const AddPost = () => {
+  
+  const initialTags = [{ id: 3, name: "English" }];
   const history = useHistory();
   const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
+  const [htmlContent, setHtmlContent] = useState("");
   const [tags, setTags] = useState([]);
   const ctx = useContext(AppContext);
   const titleChangeHandler = (event) => {
     setTitle(event.target.value);
   };
+  const getUniqueCatgoryTags = (tags) => {
+    const tagsToAdd = [];
+    tags.forEach((tag) => {
+      if (!tagsToAdd.includes(tag.name)) tagsToAdd.push(tag.name);
+    });
+    return tagsToAdd;
+  };
+  const addTags=async (tagsToAdd)=>{
+    const tagIdsToAdd = [];
+    let id;
+    for(const tag of tagsToAdd){
+      try {
+        id = await addCategory(tag);
+        tagIdsToAdd.push(id);
+      } catch (error) {
+        ctx.callSetError(error);
+        return;
+      }
+    }
+    return tagIdsToAdd;
+  }
   const submitHandler = async (event) => {
     event.preventDefault();
-
-    // const user= await logIn(email,password);
-    // console.log(user);
-    const user = await ctx.login(title, author);
+    let tagIds = [];
+    const tagsToAdd = getUniqueCatgoryTags(
+      tags.length == 0 ? initialTags : tags
+    );
+    tagIds = await addTags(tagsToAdd);
     debugger;
-    if (user) history.replace("/");
+    const data = {
+      tags: tagIds,
+      title,
+      article: encodeStr(htmlContent),
+    };
+    // const user= await logIn(email,password);
+    // console.log(title, htmlContent, tags.length == 0 ? initialTags : tags);
+    try {
+      debugger;
+      await addPost(ctx.uid, data);
+    } catch (error) {
+      ctx.callSetError(error);
+      return;
+    }
+
+    history.push("/");
+    // const user = await ctx.login(title);
+    debugger;
+    // if (user) history.replace("/");
   };
 
-  const authorChangeHandler = (event) => {
-    setAuthor(event.target.value);
-  };
   const cancelHandler = () => {
     ctx.clearError();
     history.replace("/");
   };
-  const tagChangeHandler=(tags)=>{
+  const tagsChangeHandler = (tags) => {
     setTags(tags);
-  }
+  };
+
   return (
     <div className={classes.content}>
       <Card className={classes.title}>
@@ -43,33 +86,37 @@ const AddPost = () => {
       <div className={classes.parentContainer}>
         <Card className={classes.container} style={{ paddingBottom: "20px" }}>
           <form onSubmit={submitHandler}>
-            <AutoComplete tagChanged={tagChangeHandler} title="Select Categories" tags={[
-        { id: 3, name: "English" }]} suggestions={[
-        { id: 3, name: "English" },
-        { id: 4, name: "Spain" },
-        { id: 5, name: "Italy" }
-      ]}/>
-            <Input
-              id="text"
-              type="text"
-              placeholder="Enter title of the post"
-              onChange={titleChangeHandler}
-              value={title}
-              title="Title"
-              required
+            <div className={classes.firstRow}>
+              <Input
+                id="text"
+                type="text"
+                placeholder="Enter title of the post"
+                onChange={titleChangeHandler}
+                value={title}
+                title="Title"
+                required
+                inputContainerStyle={{ flexDirection: "column" }}
+              />
+              <AutoComplete
+                title="Select Categories"
+                tags={initialTags}
+                suggestions={[
+                  { id: 3, name: "English" },
+                  { id: 4, name: "Spain" },
+                  { id: 5, name: "Italy" },
+                ]}
+                onTagsChanged={tagsChangeHandler}
+              />
+            </div>
+            <RichText
+              title="Article"
+              html={htmlContent}
+              setHtml={setHtmlContent}
             />
-            <Input
-              id="text"
-              type="text"
-              placeholder="Enter the Author's name"
-              onChange={authorChangeHandler}
-              value={author}
-              title="Author"
-              required
-            />
+
             <div className={classes.actions}>
               <Button
-                title="Login"
+                title="Save"
                 onClick={() => {}}
                 style={{ marginRight: "10px" }}
               />

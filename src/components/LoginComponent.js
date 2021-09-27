@@ -51,6 +51,7 @@ const LoginComponent = () => {
                 onChange={emailChangeHandler}
                 value={email}
                 title="E Mail"
+                inputContainerLabelStyle={{paddingTop:"10px"}}
                 required
               />
               <Input
@@ -60,6 +61,7 @@ const LoginComponent = () => {
                 title="Password"
                 onChange={passwordChangeHandler}
                 value={password}
+                inputContainerLabelStyle={{paddingTop:"10px"}}
                 required
               />
             <div className={classes.actions}>

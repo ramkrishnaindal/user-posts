@@ -4,13 +4,16 @@
     padding: 5px 20px;
     width: 85%;
 }
-.reactTags, .container label {
+.reactTags{
     padding:10px;
     margin: 10px;
 }
 .container label {
     color: rgb(25, 76, 92);
     font-weight: bold;
+    margin: 0;
+    padding: 0;
+    padding-left:10px ;
 }
 .reactTags{
     border-radius: 5px;
@@ -21,14 +24,10 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;    
-    padding: 5px 20px;
     width: 85%;
-}
-.labelContainer label {
-    padding:10px;
-    margin: 10px;
 }
 .labelContainer label {
     color: rgb(25, 76, 92);
     font-weight: bold;
+    
 }

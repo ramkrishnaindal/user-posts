@@ -1,6 +1,17 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getFirestore,doc, collection, getDocs ,setDoc,updateDoc } from "firebase/firestore";
+import { initializeApp} from "firebase/app";
+
+import {
+  getFirestore,
+  doc,
+  query,
+  collection,
+  getDocs,
+  setDoc,
+  addDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import {
   getStorage,
   ref,
@@ -30,21 +41,76 @@ const firebaseConfig = {
 };
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   databaseURL: "https://user-posts-9df11-default-rtdb.firebaseio.com"
+// });
 export const db = getFirestore(app);
-export async function addProfileData(id,data){
-  debugger;
-  await setDoc(doc(db, "users", id),data);
+export async function getCategories() {
+  const q = query(collection(db, "categories"));
+  const querySnapshot = await getDocs(q);
+
+  if (querySnapshot.size == 0) {
+    return [];
+  } else {
+    const categories = [];
+    querySnapshot.forEach((doc) => {
+      categories.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+    return categories;
+  }
 }
-export async function updateProfileData(id,data){
+export async function addCategory(data) {
   debugger;
-  await updateDoc(doc(db, "users", id),data);
+  const q = query(collection(db, "categories"), where("name", "==", data));
+
+  const querySnapshot = await getDocs(q);
+  debugger;
+  if (querySnapshot.size == 0) {
+    const docRef = await addDoc(collection(db, "categories"), { name: data });
+    debugger;
+    return docRef.id;
+  } else {
+    let id;
+    querySnapshot.forEach((doc) => {
+      id = doc.id;
+    });
+    return id;
+  }
+}
+export async function addPost(uid, data) {
+  debugger;
+  const docRef = await addDoc(collection(db, `users/${uid}/posts`), data);
+  return docRef.id;
+}
+
+export async function addProfileData(id, data) {
+  debugger;
+  await setDoc(doc(db, "users", id), data);
+}
+export async function updateProfileData(id, data) {
+  debugger;
+  await updateDoc(doc(db, "users", id), data);
 }
 // Get a list of cities from your database
-export async function getPosts(db) {
-  const postsCol = collection(db, "posts");
-  const postSnapshot = await getDocs(postsCol);
-  const postsList = postSnapshot.docs.map((doc) => {
+export async function getUsers() {
+  const usersCol = collection(db, "users");
+  const usersSnapshot = await getDocs(usersCol);
+  const usersList = usersSnapshot.docs.map((doc) => {
+    return {
+      id: doc.id,
+      ...doc.data(),
+    };
+  });
+  return usersList;
+}
+export async function getUsersPosts(uid) {
+  const postsCol = collection(db, `users/${uid}/posts`);
+  const postsSnapshot = await getDocs(postsCol);
+  const postsList = postsSnapshot.docs.map((doc) => {
     return {
       id: doc.id,
       ...doc.data(),
@@ -52,7 +118,12 @@ export async function getPosts(db) {
   });
   return postsList;
 }
+
 const auth = getAuth();
+
+// Start listing users from the beginning, 1000 at a time.
+
+
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in, see docs for a list of available properties
@@ -91,7 +162,8 @@ export const uploadPicture = async (file, pathToFileDirectory) => {
   return new Promise(function (resolve, reject) {
     if (file == null) return;
     const storage = getStorage();
-    const fileExt=file.name.split('.')[(file.name+"").split('.').length-1]
+    const fileExt =
+      file.name.split(".")[(file.name + "").split(".").length - 1];
     const storageRef = ref(storage, `${pathToFileDirectory}/${file.name}`);
     // const storageRef = ref(storage, "images/" + file.name);
     const metadata = {

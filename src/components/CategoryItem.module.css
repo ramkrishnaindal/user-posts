@@ -1,0 +1,20 @@
+.active{
+    background-color: snow;
+    color:rgb(190, 211, 212);
+    text-shadow: 1px 1px 2px black;
+
+}
+.container{
+    width:20vw;
+    background-color: rgb(203, 234, 241);  
+}
+h4{
+    padding: 5px 10px;
+    cursor: pointer;
+
+}
+h4:hover{
+    background-color: rgb(174, 230, 230);
+    color:white;
+    text-shadow: 1px 1px 2px black;
+}

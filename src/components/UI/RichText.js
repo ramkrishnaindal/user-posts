@@ -13,16 +13,16 @@ const RichText = (props) => {
     EditorState.createEmpty()
   );
   const { html } = props;
-  useEffect(() => {
-    const contentBlock = htmlToDraft(html || "");
-    if (contentBlock) {
-      const contentState = ContentState.createFromBlockArray(
-        contentBlock.contentBlocks
-      );
-      initialContent = EditorState.createWithContent(contentState);
-      setEditorState(initialContent);
-    }
-  }, [html]);
+  // useEffect(() => {
+  //   const contentBlock = htmlToDraft(html || "");
+  //   if (contentBlock) {
+  //     const contentState = ContentState.createFromBlockArray(
+  //       contentBlock.contentBlocks
+  //     );
+  //     initialContent = EditorState.createWithContent(contentState);
+  //     setEditorState(initialContent);      
+  //   }
+  // }, [html]);
   const uploadImageCallBack = (file) => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -45,34 +45,40 @@ const RichText = (props) => {
   };
   return (
     <>
-      <div className="editor">
-        <Editor
-          editorState={editorState}
-          onEditorStateChange={(state) => {
-            setEditorState(state);
-          }}
-          editorClassName={classes.editor}
-          wrapperClassName={classes.wrapper}
-          toolbar={{
-            inline: { inDropdown: true },
-            list: { inDropdown: true },
-            textAlign: { inDropdown: true },
-            link: { inDropdown: true },
-            history: { inDropdown: true },
-            image: {
-              uploadCallback: uploadImageCallBack,
-              alt: { present: true, mandatory: true },
-            },
-          }}
-        />
+      <div className={classes.richTextContainer}>
+        <div style={{ display: "flex", justifyContent: "flex-start" }}>
+          <label style={{margin:0,padding:0,paddingBottom:"10px"}}>{props.title}</label>
+        </div>
+        <div className="editor">
+          <Editor
+            editorState={editorState}
+            onEditorStateChange={(state) => {              
+              setEditorState(state);
+              props.setHtml(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+            }}            
+            editorClassName={classes.editor}
+            wrapperClassName={classes.wrapper}
+            toolbar={{
+              inline: { inDropdown: true },
+              list: { inDropdown: true },
+              textAlign: { inDropdown: true },
+              link: { inDropdown: true },
+              history: { inDropdown: true },
+              image: {
+                uploadCallback: uploadImageCallBack,
+                alt: { present: true, mandatory: true },
+              },
+            }}
+          />
+        </div>
       </div>
-      <hr />
-      <div
+      {/* <hr /> */}
+      {/* <div
         ref={divRef}
         dangerouslySetInnerHTML={{
           __html: draftToHtml(convertToRaw(editorState.getCurrentContent())),
         }}
-      />
+      /> */}
     </>
   );
 };

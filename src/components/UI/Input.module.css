@@ -6,13 +6,17 @@
     padding: 5px 20px;
     width: 85%;
 }
-.input, .inputContainer label {
-    padding:10px;
+.input{
+    padding:10px ;
     margin: 10px;
 }
+
 .inputContainer label {
     color: rgb(25, 76, 92);
     font-weight: bold;
+    padding: 0;
+    margin: 0;
+    padding-left: 10px;
 }
 .input{
     border-radius: 5px;

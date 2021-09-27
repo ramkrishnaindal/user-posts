@@ -26,8 +26,10 @@ const AutoComplete = (props) => {
         tags: [...tags],
       };
     });
+    props.onTagsChanged(tags);
   };
   const onAddition = (tag) => {
+    
     const tags = [].concat(tagsState.tags, tag);
     setTagsState((prevState) => {
       return {
@@ -35,6 +37,7 @@ const AutoComplete = (props) => {
         tags: [...tags],
       };
     });
+    props.onTagsChanged(tags);
   };
   return (
     <div className={classes.container}>
@@ -47,10 +50,10 @@ const AutoComplete = (props) => {
         placeholderText={props.placeholderText || "Enter a value"}
         ref={reactTags}
         minQueryLength={1}
-        allowNew
         tags={tagsState.tags}
         suggestions={tagsState.suggestions}
         onDelete={onDelete}
+        allowNew
         onAddition={onAddition}
         className={classes.reactTags}
       />

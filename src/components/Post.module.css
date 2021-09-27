@@ -1,0 +1,65 @@
+h2{
+    text-transform: capitalize;
+    letter-spacing: .1rem;
+    text-align: center;
+    background-color: snow;
+    color:rgb(190, 211, 212);
+    text-shadow: 1px 1px 2px black;
+    white-space: wrap; 
+    width: 35vw;
+}
+.user:first-letter{
+    color:red;
+    font-size: large;    
+}
+.author p{
+    display: inline;
+    float: right;
+}
+.author span{
+    float: right;
+}
+.author{
+    display: inline;
+    float: right;
+}
+.article{
+    clear: both;
+}
+.article *{
+    background-color: rgb(203, 234, 241)!important;  
+    font-size: 14px!important;
+    display: inline;
+    float: right;
+}
+hr{
+    margin-bottom: 10px;
+}
+.article p{
+    text-overflow: ellipsis;
+    white-space: nowrap; 
+    max-width:400px;
+    font-size: 14px;
+    padding: 5px;
+    overflow: hidden;
+    margin-left: auto;    
+}
+li{
+    list-style: none;
+    display: inline;
+    padding: 5px;
+    margin-left: 10px;
+    background-color: rgb(247, 251, 252);
+}
+ul{
+    display: inline;
+    float: right;
+    margin-left: auto;
+}
+.container{
+    display: flex;
+    width: 35vw;
+    flex-direction: column;
+    background-color: rgb(203, 234, 241);  
+    padding-right: 10px; 
+}

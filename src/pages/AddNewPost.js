@@ -1,10 +1,10 @@
 import React from 'react'
+import AddPost from '../components/AddPost'
 
 const AddNewPost = () => {
+    debugger;
     return (
-        <div>
-            
-        </div>
+        <AddPost/>
     )
 }
 

@@ -44,6 +44,7 @@ function App() {
   </>:null;
   return (
     <>
+    
     <ErrorModal onClose={()=>ctx.clearError()}/>
     <div style={{display:"flex",flexDirection:"column",height:"100vh"}}>
     <Layout title="User Posts" imageUrl={process.env.PUBLIC_URL + '/blog.jfif'} />

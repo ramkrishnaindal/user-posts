@@ -6,11 +6,14 @@ import Button from "./UI/Button";
 import Card from "./UI/Card";
 import { useHistory } from "react-router-dom";
 import AutoComplete from "./UI/AutoComplete";
+import {useDispatch} from 'react-redux'
 import RichText from "./UI/RichText";
 import { addCategory, addPost,getCategories } from "../shared/firebase";
 import { encodeStr } from "../shared/utilities";
+
+import { storeActions } from './../store/store';
 const AddPost = () => {
-  
+  const dispatch=useDispatch();
   const initialTags = [{ id: 3, name: "English" }];
   const history = useHistory();
   const [title, setTitle] = useState("");
@@ -48,7 +51,7 @@ const AddPost = () => {
       tags.length == 0 ? initialTags : tags
     );
     tagIds = await addTags(tagsToAdd);
-    debugger;
+    dispatch(storeActions.addCategories(tagIds));
     const data = {
       tags: tagIds,
       title,
@@ -56,9 +59,13 @@ const AddPost = () => {
     };
     // const user= await logIn(email,password);
     // console.log(title, htmlContent, tags.length == 0 ? initialTags : tags);
-    try {
-      debugger;
+    try {      
       await addPost(ctx.uid, data);
+      debugger;
+      dispatch(storeActions.addPost({
+        uid:ctx.uid,
+        ...data
+      }))
     } catch (error) {
       ctx.callSetError(error);
       return;

@@ -5,12 +5,14 @@ import {
   getFirestore,
   doc,
   query,
+  document,
   collection,
   getDocs,
   setDoc,
   addDoc,
   updateDoc,
   where,
+  deleteDoc 
 } from "firebase/firestore";
 import {
   getStorage,
@@ -63,8 +65,16 @@ export async function getCategories() {
     return categories;
   }
 }
+export async function deleteCategory(id) {
+    const docRef = await deleteDoc(doc(db, "categories",id));    
+    return docRef;
+}
+export async function deletePost(uid,id) {
+  const docRef = await deleteDoc(doc(db, `users/${uid}/posts/${id}`));    
+  return docRef;
+}
 export async function addCategory(data) {
-  debugger;
+  
   const q = query(collection(db, "categories"), where("name", "==", data));
 
   const querySnapshot = await getDocs(q);

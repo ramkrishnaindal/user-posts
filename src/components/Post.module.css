@@ -61,7 +61,7 @@ hr{
 .article p{
     text-overflow: ellipsis;
     white-space: nowrap; 
-    max-width:400px;
+    max-width:40vw;
     font-size: 14px;
     padding: 5px;
     overflow: hidden;

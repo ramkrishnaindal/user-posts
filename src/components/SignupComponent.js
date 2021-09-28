@@ -4,9 +4,10 @@ import Card from "./UI/Card";
 import classes from "./SignupComponent.module.css";
 import Input from "./UI/Input";
 import Button from "./UI/Button";
-
+import { useDispatch } from "react-redux";
 import AppContext from "../context/app-context";
 import ImageUpload from "./UI/ImageUpload";
+import {storeActions} from '../store/store'
 import {
   uploadPicture,
   addProfileData,
@@ -14,6 +15,7 @@ import {
 } from "../shared/firebase";
 
 const SignUpComponent = () => {
+  const dispatch=useDispatch();
   const [email, setEmail] = useState("");
   const [file, setFile] = useState();
   
@@ -26,17 +28,23 @@ const SignUpComponent = () => {
     setFile(file);
   };
   const submitHandler = async (event) => {
+    debugger;
     event.preventDefault();
     let user;
     try {
       user = await ctx.signUp(email, password);
     } catch (error) {
+      alert("signup")
       ctx.callSetError(error);
       return;
     }
     try {
       await addProfileData(user.uid, { name });
+      if(!file)
+        dispatch(storeActions.addUser({id:user.uid,  name,profileImageUrl:null }))
+        if (user) history.replace("/");
     } catch (error) {
+      alert("addpropfile")
       ctx.callSetError(error);
       if (user) history.replace("/");
       return;
@@ -44,8 +52,11 @@ const SignUpComponent = () => {
     let profileImageUrl;
     try {
       profileImageUrl = await uploadPicture(file, `${user.uid}/images`);
+      dispatch(storeActions.addUser({id:user.uid,  name,profileImageUrl }))
       // setImageUrl(profileImageUrl);
+      if (user) history.replace("/");
     } catch (error) {
+      alert("profile")
       ctx.callSetError(error);
       if (user) history.replace("/");
       return;
@@ -55,6 +66,7 @@ const SignUpComponent = () => {
         await updateProfileData(user.uid, { profileImageUrl });
         if (user) history.replace("/");
       } catch (error) {
+        alert()
         ctx.callSetError(error);
         if (user) history.replace("/");
       }

@@ -23,7 +23,7 @@ h1{
     color:  rgb(17, 65, 114);
     font-size: 1rem;
     font-weight: bold;
-    margin-right: 10px;
+    /* margin-right: 10px; */
     cursor: pointer;
 }
 .logo{

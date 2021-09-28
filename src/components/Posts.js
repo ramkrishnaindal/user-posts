@@ -13,8 +13,11 @@ const Posts = (props) => {
     return state.userPosts.posts;
   });
   let posts=allPosts;
-  if(catId){
-    posts=allPosts.filter(post=>post.tags.includes(catId));
+  if(catId){    
+    posts=allPosts.filter(post=>{
+      const IDs=post.tags.map(cat=>cat.id)
+      return IDs.includes(catId)
+    });
   }
   console.log("posts",posts)
   return (

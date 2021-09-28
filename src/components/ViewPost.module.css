@@ -8,6 +8,7 @@
     border: 1px solid black;
     padding: 10px;
     margin-left: 10px 5px;
+    display: inline-block;
     background-color: rgb(237, 239, 240);      
 }
 .content{
@@ -76,5 +77,6 @@ h1{
     padding: 10px;
     background-color: #fff;
     margin: 10px;
-    border:1px solid black
+    border:1px solid black;
+    min-height:40vh;
 }

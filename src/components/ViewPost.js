@@ -157,7 +157,7 @@ const ViewPost = (props) => {
                   <Button
                     title="Delete"
                     onClick={deleteHandler}
-                    style={{ marginRight: "10px" }}
+                    style={{ marginRight: "10px",color:"red" }}
                   />
                 )}
                 <Button

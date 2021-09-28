@@ -35,7 +35,7 @@ const Post = (props) => {
   const users = useSelector((state) => {
     return state.userPosts.users;
   });
-  
+  debugger
   const user = users.find((user) => user.id == props.uid);
 
   return (
@@ -65,6 +65,7 @@ const Post = (props) => {
             <span
               className={classes.editAction}
               onClick={onEditHandler}
+              title="Edit"
               style={{
                 position: "absolute",
                 cursor: "pointer",
@@ -79,6 +80,7 @@ const Post = (props) => {
             <span
               className={classes.deleteAction}
               onClick={onDeleteHandler}
+              title="Delete"
               style={{
                 position: "absolute",
                 cursor: "pointer",

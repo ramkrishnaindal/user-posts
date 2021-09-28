@@ -30,6 +30,9 @@ const postsSlice=createSlice({
       loadUsers(state,action) {
         state.users=action.payload;
       },
+      addUser(state,action) {
+        state.users=[...state.users,action.payload];
+      },
       loadPosts(state, action) {
         state.posts =[...state.posts,...action.payload] ;
       }

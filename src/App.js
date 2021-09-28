@@ -23,7 +23,7 @@ function App() {
       dispatch(storeActions.loadCategories(cat))
     }
     const getUsersData=async()=>{  
-      debugger;    
+      
       const users=await getUsers();
       dispatch(storeActions.loadUsers(users))
       for(const user of users){

@@ -16,7 +16,8 @@ const postsSlice=createSlice({
       },
       deleteCategories(state,action) {        
         const tags=action.payload;
-        state.categories=state.categories.filter(cat=>!tags.includes(cat.id));
+        const IDs=tags.map(cat=>cat.id)
+        state.categories=state.categories.filter(cat=>!IDs.includes(cat.id));
       },
       deletePosts(state,action) {         
         const uid=action.payload.uid;

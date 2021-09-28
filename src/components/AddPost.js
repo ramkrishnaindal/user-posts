@@ -21,6 +21,7 @@ const AddPost = () => {
   const [htmlContent, setHtmlContent] = useState("");
   const [tags, setTags] = useState([]);
   const ctx = useContext(AppContext);
+  console.log("ctx",ctx)
   const titleChangeHandler = (event) => {
     setTitle(event.target.value);
   };
@@ -61,9 +62,10 @@ const AddPost = () => {
     // const user= await logIn(email,password);
     // console.log(title, htmlContent, tags.length == 0 ? initialTags : tags);
     try {      
-      await addPost(ctx.uid, data);
-      debugger;
+      const docId=await addPost(ctx.uid, data);
+      
       dispatch(storeActions.addPost({
+        id:docId,
         uid:ctx.uid,
         ...data
       }))
@@ -74,7 +76,7 @@ const AddPost = () => {
 
     history.push("/");
     // const user = await ctx.login(title);
-    debugger;
+    
     // if (user) history.replace("/");
   };
 

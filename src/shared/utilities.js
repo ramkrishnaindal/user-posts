@@ -11,22 +11,20 @@ export const decodeStr = (rawStr) => {
 };
 
 export const getUserCategories = (catIDs, categories) => {
-  return categories.filter((cat) => catIDs.includes(cat.id));
+  const IDs=catIDs.map(cat=>cat.id)
+  return categories.filter((cat) => IDs.includes(cat.id));
 };
 export const getUniqueTags = (id, posts) => {
-  const tagsToDelete = [];
+  debugger
+  let tagsToDelete =[]
   const otherPosts = posts.filter((post) => post.id != id);
   const post = posts.find((post) => post.id == id);
+  if(otherPosts.length==0)
+    return post.tags;
+  const IDs=otherPosts.tags.map(cat=>cat.id)
+  
   if (post && post.tags && post.tags.length > 0) {
-    post.tags.forEach((tag) => {
-      let isUnique = true;
-      otherPosts.forEach((otherPost) => {
-        isUnique = isUnique && !otherPost.tags.includes(tag);
-        if (!isUnique) return;
-      });
-      if (isUnique) tagsToDelete.push(tag);
-    });
+    tagsToDelete =post.tags.filter(tag=>!IDs.includes(tag.id))
   }
-
   return tagsToDelete;
 };

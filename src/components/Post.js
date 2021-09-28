@@ -30,11 +30,12 @@ const Post = (props) => {
   const categories = useSelector((state) => {
     return state.userPosts.categories;
   });
+  
   const userCategories = getUserCategories(props.tags, categories);
   const users = useSelector((state) => {
     return state.userPosts.users;
   });
-  debugger;
+  
   const user = users.find((user) => user.id == props.uid);
 
   return (
@@ -54,6 +55,7 @@ const Post = (props) => {
           flexGrow: 0,
           marginTop: "30px",
           cursor: "pointer",
+          backgroundColor:"white"
         }}
         onClick={onClickHandler}
       >

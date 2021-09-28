@@ -20,7 +20,7 @@ h1{
     text-shadow: 2px 2px grey;
 }
 .parentContainer{
-    min-width:100%;    
+    min-width:98%;    
     display: flex;
     align-items: flex-start;
     align-content: center;

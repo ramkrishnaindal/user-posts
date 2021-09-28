@@ -17,8 +17,7 @@ const CategoriesList = () => {
   const categories = useSelector((state) => {
     return state.userPosts.categories;
   });
-  console.log(catId);
-  console.log(categories);
+  
 
   const onClickHandler = () => {
     history.replace("/posts");

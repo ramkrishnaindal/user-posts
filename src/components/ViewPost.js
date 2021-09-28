@@ -33,8 +33,8 @@ const ViewPost = (props) => {
   const onConfirmHandler = async () => {
     ctx.clearConfirm()
     const tagsToDelete = getUniqueTags(userPost.id, posts);
-    tagsToDelete.forEach(async(tagId) => {
-      const delRef = await deleteCategory(tagId);
+    tagsToDelete.forEach(async(tag) => {
+      const delRef = await deleteCategory(tag.id);
       console.log(delRef);
     });
     dispatch(storeActions.deleteCategories(tagsToDelete));
@@ -44,12 +44,12 @@ const ViewPost = (props) => {
     ctx.clearConfirm();
     history.replace('/')
   };
-  if(!userPost) return <h2>hi there</h2>;
-  if (!categories) return <h2>hi there</h2>;
-  if (!posts) return <h2>hi there</h2>;
-
+  if(!userPost) return null;
+  if (!categories) return null;
+  if (!posts) return null;
+  const IDs=userPost.tags.map(cat=>cat.id);
   const userCategories = categories.filter((cat) =>
-    userPost.tags.includes(cat.id)
+  IDs.includes(cat.id)
   );
   const cancelHandler = () => {
     history.goBack();

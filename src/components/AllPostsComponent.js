@@ -9,9 +9,11 @@ const AllPostsComponent = (props) => {
   const dispatch = useDispatch();
   const ctx = useContext(AppContext);
   const onConfirmHandler = async (uid, id) => {
+    
     const tagsToDelete = getUniqueTags(id, props.posts);
+    
     tagsToDelete.forEach(async(tagId) => {
-      const delRef = await deleteCategory(tagId);
+      const delRef = await deleteCategory(tagId.id);
       console.log(delRef);
     });
     dispatch(storeActions.deleteCategories(tagsToDelete));

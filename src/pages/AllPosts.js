@@ -3,7 +3,7 @@ import Posts from './../components/Posts';
 
 
 const AllPosts = () => {
-    debugger;
+    
     return (
         <Posts/>
     )

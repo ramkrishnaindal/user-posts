@@ -5,7 +5,6 @@ import {
   getFirestore,
   doc,
   query,
-  document,
   collection,
   getDocs,
   setDoc,
@@ -75,34 +74,43 @@ export async function deletePost(uid,id) {
 }
 export async function addCategory(data) {
   
-  const q = query(collection(db, "categories"), where("name", "==", data));
-
-  const querySnapshot = await getDocs(q);
-  debugger;
-  if (querySnapshot.size == 0) {
+  const docRef=collection(db, "categories")
+  const docSnapshot =await getDocs(docRef)
+  if(docSnapshot.size==0)
+  {
     const docRef = await addDoc(collection(db, "categories"), { name: data });
-    debugger;
     return { id:docRef.id,name: data };
-  } else {
-    let id;
-    querySnapshot.forEach((doc) => {
-      id = doc.id;
-    });
-    return { id,name: data };;
+  }else{
+    const q = query(docRef, where("name", "==", data));
+    const querySnapshot = await getDocs(q);
+    
+    if (querySnapshot.size == 0) {
+      const docRef = await addDoc(collection(db, "categories"), { name: data });
+      
+      return { id:docRef.id,name: data };
+    } else {
+      let id;
+      querySnapshot.forEach((doc) => {
+        id = doc.id;
+      });
+      return { id,name: data };;
+    }
   }
+    
 }
 export async function addPost(uid, data) {
-  debugger;
+  
+  const collectionRef=collection(db, `users/${uid}/posts`)
   const docRef = await addDoc(collection(db, `users/${uid}/posts`), data);
   return docRef.id;
 }
 
 export async function addProfileData(id, data) {
-  debugger;
+  
   await setDoc(doc(db, "users", id), data);
 }
 export async function updateProfileData(id, data) {
-  debugger;
+  
   await updateDoc(doc(db, "users", id), data);
 }
 // Get a list of cities from your database
@@ -168,7 +176,7 @@ export const signUp = async (email, password) => {
   }
 };
 export const uploadPicture = async (file, pathToFileDirectory) => {
-  debugger;
+  
   return new Promise(function (resolve, reject) {
     if (file == null) return;
     const storage = getStorage();
@@ -242,7 +250,7 @@ export const logIn = async (email, password) => {
 
     return userCredential.user;
   } catch (error) {
-    debugger;
+    
     console.log(error.code, error.message);
     return error;
   }

@@ -55,6 +55,7 @@ export const AppProvider = (props) => {
   };
   const signUpHandler = async (email, password) => {
     const result = await signUp(email, password);
+    
     if (!result.code) {
       setLoggedIn(true);
       setIdToken(result.accessToken);

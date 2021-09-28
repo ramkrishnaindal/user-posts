@@ -14,7 +14,7 @@ const CategoryItem = (props) => {
     }
     console.log(props.isActive)
     return (
-        <div className={`${classes.ItemContainer} ${props.isActive?classes.active:''}`} onClick={onClickHandler.bind(this,props.id)}>
+        <div className={`${classes.itemContainer} ${props.isActive?classes.active:''}`} onClick={onClickHandler.bind(this,props.id)}>
             <h4>{props.name}</h4>
         </div>
     )

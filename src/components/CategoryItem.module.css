@@ -1,3 +1,6 @@
+.itemContainer{
+    cursor:pointer;
+}
 .active{
     background-color: snow;
     color:rgb(190, 211, 212);

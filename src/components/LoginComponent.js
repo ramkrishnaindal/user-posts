@@ -59,6 +59,7 @@ const LoginComponent = () => {
                 type="password"
                 placeholder="Password"
                 title="Password"
+                type="password"
                 onChange={passwordChangeHandler}
                 value={password}
                 inputContainerLabelStyle={{paddingTop:"10px"}}

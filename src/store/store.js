@@ -18,13 +18,12 @@ const postsSlice=createSlice({
         const tags=action.payload;
         state.categories=state.categories.filter(cat=>!tags.includes(cat.id));
       },
-      deletePosts(state,action) { 
-        debugger;       
+      deletePosts(state,action) {         
         const uid=action.payload.uid;
         const id=action.payload.id;
         state.posts=state.posts.filter(post=>!(post.uid===uid && post.id===id));
       },
-      addPost(state,action) {        
+      addPost(state,action) {                
         state.posts =[...state.posts,action.payload] ;
       },
       loadUsers(state,action) {

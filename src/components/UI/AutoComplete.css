@@ -78,7 +78,6 @@
     /* match tag layout */
     padding: 7px 2px;
     margin-bottom: 6px;
-  
     /* prevent autoresize overflowing the container */
     max-width: 100%;
   }
@@ -116,10 +115,14 @@
   .react-tags__suggestions {
     position: absolute;
     top: 40px;
-    left: 0;
+    left:0px;
+    float: left;
     width: 100%;
   }
-  
+  .react-tags__suggestions *{
+    float: left;
+
+  }
   @media screen and (min-width: 30em) {
     .react-tags__suggestions {
       width: 240px;

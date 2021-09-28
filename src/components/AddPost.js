@@ -6,15 +6,16 @@ import Button from "./UI/Button";
 import Card from "./UI/Card";
 import { useHistory } from "react-router-dom";
 import AutoComplete from "./UI/AutoComplete";
-import {useDispatch} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 import RichText from "./UI/RichText";
 import { addCategory, addPost,getCategories } from "../shared/firebase";
 import { encodeStr } from "../shared/utilities";
 
 import { storeActions } from './../store/store';
 const AddPost = () => {
+  const categories = useSelector((state) => state.userPosts.categories);
   const dispatch=useDispatch();
-  const initialTags = [{ id: 3, name: "English" }];
+  const initialTags = [];
   const history = useHistory();
   const [title, setTitle] = useState("");
   const [htmlContent, setHtmlContent] = useState("");
@@ -107,11 +108,7 @@ const AddPost = () => {
               <AutoComplete
                 title="Select Categories"
                 tags={initialTags}
-                suggestions={[
-                  { id: 3, name: "English" },
-                  { id: 4, name: "Spain" },
-                  { id: 5, name: "Italy" },
-                ]}
+                suggestions={categories}
                 onTagsChanged={tagsChangeHandler}
               />
             </div>

@@ -1,11 +1,13 @@
 .container{    
     display: flex;
-    position: absolute;    
+    position: fixed;    
     z-index: 2;
     justify-content: center;
     align-items: center;
     width: 100vw;    
     height: 100vh;
+    left:0;
+    top: 0;
 }
 .modal-container{
     width: 60vw;

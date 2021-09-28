@@ -82,13 +82,13 @@ export async function addCategory(data) {
   if (querySnapshot.size == 0) {
     const docRef = await addDoc(collection(db, "categories"), { name: data });
     debugger;
-    return docRef.id;
+    return { id:docRef.id,name: data };
   } else {
     let id;
     querySnapshot.forEach((doc) => {
       id = doc.id;
     });
-    return id;
+    return { id,name: data };;
   }
 }
 export async function addPost(uid, data) {

@@ -9,8 +9,6 @@ const AllPostsComponent = (props) => {
   const dispatch = useDispatch();
   const ctx = useContext(AppContext);
   const onConfirmHandler = async (uid, id) => {
-    console.log("uid", uid);
-    console.log("id", id);
     const tagsToDelete = getUniqueTags(id, props.posts);
     tagsToDelete.forEach(async(tagId) => {
       const delRef = await deleteCategory(tagId);
@@ -40,6 +38,7 @@ const AllPostsComponent = (props) => {
           <Post
             key={post.id}
             article={post.article}
+            deleteAllowed={ctx.uid===post.uid}
             uid={post.uid}
             id={post.id}
             title={post.title}

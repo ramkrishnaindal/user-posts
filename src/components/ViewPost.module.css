@@ -1,0 +1,80 @@
+.contentContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+.tagLabel{
+    border: 1px solid black;
+    padding: 10px;
+    margin-left: 10px 5px;
+    background-color: rgb(237, 239, 240);      
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: 70%;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    min-height: 100vh;
+}
+.title{
+    width: 70%;
+    background-color: rgb(17, 65, 114);
+    color: white;
+    padding: 10px 0;
+}
+h1{
+    width:70%;
+    text-align: center;
+    margin: auto;
+    text-shadow: 2px 2px grey;
+}
+.parentContainer{
+    min-width:100%;    
+    display: flex;
+    align-items: flex-start;
+    align-content: center;
+    justify-content: center;
+    flex: 1;
+}
+.categoryContainer{
+    display: flex;
+    flex-direction: column;
+}
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:70%;
+    min-height:70vh;
+}
+.textLabel{
+    border-radius: 5px;
+    border: 1px solid black;
+    outline: none;
+    padding: 10px;
+    margin: 10px;
+    background-color: #fff;
+    white-space: nowrap;
+    max-width: 70%;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+}
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+}
+.actions{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+.articleLabel{
+    padding: 10px;
+    background-color: #fff;
+    margin: 10px;
+    border:1px solid black
+}

@@ -12,11 +12,21 @@ h2{
     /* white-space: wrap;  */
     width: 35vw;
 }
-.actions{
+.deleteAction{
     position:absolute;
     cursor:pointer;
     right:0;
     color:rgb(190, 211, 212)
+}
+.editAction{
+    position:absolute;
+    cursor:pointer;
+    right:20px;
+    color:rgb(190, 211, 212)
+}
+
+.edit:hover{
+    color:rgb(61, 90, 90)
 }
 .delete:hover{
     color:red

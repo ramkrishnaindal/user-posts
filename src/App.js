@@ -3,6 +3,7 @@ import './App.css';
 import Signup from './pages/SignUp';
 import {Route, Switch,Redirect} from 'react-router-dom';
 import Login from './pages/Login';
+import ViewPosts from './pages/ViewPosts';
 import AllPosts from './pages/AllPosts';
 import AddNewPosts from './pages/AddNewPost'
 import AppContext from './context/app-context';
@@ -13,6 +14,7 @@ import Container from './components/shared/Container';
 import {getCategories,getUsers,getUsersPosts} from './shared/firebase';
 import {useDispatch} from 'react-redux';
 import {storeActions} from './store/store'
+
 function App() {  
   const dispatch = useDispatch();
   useEffect(()=>{      
@@ -35,10 +37,10 @@ function App() {
   },[dispatch]);
   const ctx=useContext(AppContext);
   const loggedInRoutes=ctx.isLoggedIn?<>
-  <Route path="/posts/newPost">
+  <Route path="/posts/newPost" exact>
         <AddNewPosts />
       </Route>
-      <Route path="/posts/:id">
+      <Route path="/posts/edit/:id" exact>
         <EditPost />
       </Route>
   </>:null;
@@ -50,6 +52,9 @@ function App() {
     <Layout title="User Posts" imageUrl={process.env.PUBLIC_URL + '/blog.jfif'} />
     <Container>
     <Switch>
+    <Route path="/posts" exact>
+        <AllPosts/>
+      </Route>
       <Route path="/" exact>
         <Redirect to="/posts"/>
       </Route>
@@ -59,13 +64,15 @@ function App() {
       <Route path="/login">
         <Login/>
       </Route>
-      <Route path="/posts" exact>
-        <AllPosts/>
+      <Route path="/posts/view/:postId" >
+        <ViewPosts/>
       </Route>
+
       {loggedInRoutes}
-      <Route path="**">
+
+      {/* <Route path="**">
         <Redirect to="/posts"/>
-      </Route>
+      </Route> */}
     </Switch>
     </Container>
     </div>

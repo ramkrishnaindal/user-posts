@@ -7,6 +7,12 @@
     color:rgb(190, 211, 212);
     text-shadow: 1px 1px 2px black;
 }
+.catgories{
+    color: rgb(203, 234, 241);  
+    background-color:rgb(104, 163, 167);
+    text-shadow: 1px 1px 2px black;
+    padding: 5px 10px;
+}
 h4{
     padding: 5px 10px;
     cursor: pointer;

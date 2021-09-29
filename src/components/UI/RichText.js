@@ -12,9 +12,9 @@ const RichText = (props) => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
-  const { html } = props;
+  const { initHtml } = props;
   useEffect(() => {
-    const contentBlock = htmlToDraft(html || "");
+    const contentBlock = htmlToDraft(initHtml || "");
     if (contentBlock) {
       const contentState = ContentState.createFromBlockArray(
         contentBlock.contentBlocks
@@ -22,7 +22,7 @@ const RichText = (props) => {
       initialContent = EditorState.createWithContent(contentState);
       setEditorState(initialContent);      
     }
-  }, [html]);
+  }, [initHtml]);
   const uploadImageCallBack = (file) => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();

@@ -24,6 +24,9 @@ const CategoriesList = () => {
   };
   return (
     <div className={classes.container}>
+      <div className={classes.catgories} >
+        <h3>Categories</h3>
+      </div>
       <div className={`${classes.ItemContainer} ${!catId?classes.active:''}`} onClick={onClickHandler}>
         <h4>All</h4>
       </div>

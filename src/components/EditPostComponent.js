@@ -161,7 +161,8 @@ const EditPostComponent = () => {
             {contentLoaded && (
               <RichText
                 title="Article"
-                html={initialHtmlContent}
+                initHtml={initialHtmlContent}
+                // html={initialHtmlContent}
                 setHtml={setHtmlContent}
               />
             )}

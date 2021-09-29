@@ -61,11 +61,11 @@ hr{
 .article p{
     text-overflow: ellipsis;
     white-space: nowrap; 
-    max-width:40vw;
+    max-width:32vw;
     font-size: 14px;
     padding: 5px;
     overflow: hidden;
-    margin-left: auto;    
+    /* margin-left: auto;     */
 }
 li{
     list-style: none;
@@ -82,7 +82,8 @@ ul{
 .container{
     display: flex;
     width: 35vw;
-    
+    min-height: 20vh;
+   
     flex-direction: column;
     background-color: rgb(203, 234, 241);  
     padding-right: 10px; 

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext,useEffect } from "react";
 import AppContext from "../context/app-context";
 import classes from "./AddPost.module.css";
 import Input from "./UI/Input";
@@ -10,18 +10,27 @@ import {useDispatch,useSelector} from 'react-redux'
 import RichText from "./UI/RichText";
 import { addCategory, addPost } from "../shared/firebase";
 import { encodeStr } from "../shared/utilities";
-
+import { decodeStr } from "./../shared/utilities";
 import { storeActions } from './../store/store';
+
 const AddPost = () => {
   const categories = useSelector((state) => state.userPosts.categories);
   const dispatch=useDispatch();
   const initialTags = [];
   const history = useHistory();
   const [title, setTitle] = useState("");
+  
+  const [initialHtmlContent, setInitialHtmlContent] = useState("");
+  const [contentLoaded, setContentLoaded] = useState(false);
   const [htmlContent, setHtmlContent] = useState("");
   const [tags, setTags] = useState([]);
   const ctx = useContext(AppContext);
   console.log("ctx",ctx)
+  useEffect(() => {
+    setInitialHtmlContent(decodeStr(""));
+      setContentLoaded(true)    
+  }, []);
+
   const titleChangeHandler = (event) => {
     setTitle(event.target.value);
   };
@@ -114,11 +123,15 @@ const AddPost = () => {
                 onTagsChanged={tagsChangeHandler}
               />
             </div>
-            <RichText
-              title="Article"
-              html={htmlContent}
-              setHtml={setHtmlContent}
-            />
+            {contentLoaded && (
+              <RichText
+                title="Article"
+                initHtml={initialHtmlContent}
+                // html={initialHtmlContent}
+                setHtml={setHtmlContent}
+              />
+            )}
+
 
             <div className={classes.actions}>
               <Button

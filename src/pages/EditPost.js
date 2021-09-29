@@ -1,11 +1,9 @@
 import React from 'react'
-
+import EditPostComponent from '../components/EditPostComponent'
 const EditPost = () => {
     debugger;
     return (
-        <div>
-            
-        </div>
+        <EditPostComponent/>
     )
 }
 

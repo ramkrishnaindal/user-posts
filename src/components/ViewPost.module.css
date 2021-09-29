@@ -60,7 +60,8 @@ h1{
     margin: 10px;
     background-color: #fff;
     white-space: nowrap;
-    max-width: 70%;
+    min-width: 30vw;
+    max-width: 40vw;
     text-overflow: ellipsis;
     overflow-x: hidden;
 }

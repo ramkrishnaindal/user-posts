@@ -27,6 +27,14 @@ const postsSlice=createSlice({
       addPost(state,action) {                
         state.posts =[...state.posts,action.payload] ;
       },
+      editPost(state,action) {                
+        state.posts =state.posts.map(statePost=>{
+          if(statePost.id===action.payload.id)
+            return action.payload;
+          else
+           return statePost;
+        })
+      },
       loadUsers(state,action) {
         state.users=action.payload;
       },

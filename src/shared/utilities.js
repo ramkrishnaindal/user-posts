@@ -17,10 +17,10 @@ export const getUserCategories = (catIDs, categories) => {
 export const getUniqueTags = (id, posts) => {
   debugger;
   const tagsToDelete = [];
-  const otherPosts = posts.filter((post) => post.id != id);
+  const otherPosts = posts.filter((post) => post.id !== id);
 
-  const post = posts.find((post) => post.id == id);
-  if (otherPosts.length == 0) return post.tags;
+  const post = posts.find((post) => post.id === id);
+  if (otherPosts.length === 0) return post.tags;
   if (post && post.tags && post.tags.length > 0) {
     post.tags.forEach((tag) => {
       let isUnique = true;

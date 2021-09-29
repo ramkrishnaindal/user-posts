@@ -13,16 +13,16 @@ const RichText = (props) => {
     EditorState.createEmpty()
   );
   const { html } = props;
-  // useEffect(() => {
-  //   const contentBlock = htmlToDraft(html || "");
-  //   if (contentBlock) {
-  //     const contentState = ContentState.createFromBlockArray(
-  //       contentBlock.contentBlocks
-  //     );
-  //     initialContent = EditorState.createWithContent(contentState);
-  //     setEditorState(initialContent);      
-  //   }
-  // }, [html]);
+  useEffect(() => {
+    const contentBlock = htmlToDraft(html || "");
+    if (contentBlock) {
+      const contentState = ContentState.createFromBlockArray(
+        contentBlock.contentBlocks
+      );
+      initialContent = EditorState.createWithContent(contentState);
+      setEditorState(initialContent);      
+    }
+  }, [html]);
   const uploadImageCallBack = (file) => {
     return new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();

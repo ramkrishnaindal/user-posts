@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import AutoComplete from "./UI/AutoComplete";
 import {useDispatch,useSelector} from 'react-redux'
 import RichText from "./UI/RichText";
-import { addCategory, addPost,getCategories } from "../shared/firebase";
+import { addCategory, addPost } from "../shared/firebase";
 import { encodeStr } from "../shared/utilities";
 
 import { storeActions } from './../store/store';

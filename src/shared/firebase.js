@@ -104,6 +104,11 @@ export async function addPost(uid, data) {
   const docRef = await addDoc(collection(db, `users/${uid}/posts`), data);
   return docRef.id;
 }
+export async function editPost(uid,id, data) {  
+  const docRef=doc(db, `users/${uid}/posts/${id}`)
+  await setDoc(docRef, data);
+  return id;
+}
 
 export async function addProfileData(id, data) {
   

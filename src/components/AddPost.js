@@ -107,7 +107,7 @@ const AddPost = () => {
           <form onSubmit={submitHandler}>
             <div className={classes.firstRow}>
               <Input
-                id="text"
+                id="title"
                 type="text"
                 placeholder="Enter title of the post"
                 onChange={titleChangeHandler}

@@ -7,4 +7,10 @@
     width:6rem;
     font-weight: bold;
     cursor: pointer;
+    opacity: .5;
+    transition: opacity .3s,transform .3s ;
+}
+.btn:hover{
+    opacity: 1;
+    transform: scale(1.07);
 }

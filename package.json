@@ -2,6 +2,7 @@
   "name": "user-posts",
   "version": "0.1.0",
   "private": true,
+  "homepage":"public/index.html",
   "dependencies": {
     "@firebase/storage": "^0.8.2",
     "@fortawesome/fontawesome-free": "^5.15.4",

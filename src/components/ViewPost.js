@@ -11,9 +11,10 @@ import { decodeStr } from "./../shared/utilities";
 import { deleteCategory, deletePost } from "../shared/firebase";
 import { storeActions } from "./../store/store";
 import { getUniqueTags } from "../shared/utilities";
+import TextArea from './UI/TextArea'
 const ViewPost = (props) => {
-  debugger;
   const articleRef = useRef();
+  const commentRef = useRef();
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const deleteAllowed = params.get("deleteAllowed");
@@ -54,6 +55,11 @@ const ViewPost = (props) => {
   const cancelHandler = () => {
     history.goBack();
   };
+  const submitHandler=(e)=>{
+    e.preventDefault()
+    debugger
+    console.log(commentRef.current.value)
+  }
   const deleteHandler=()=>{
     ctx.callSetConfirm(
       `Do you want to delete the post with title "${userPost.title}"`
@@ -143,6 +149,27 @@ const ViewPost = (props) => {
                   </div>
                 </div>
               </div>
+              <form onSubmit={submitHandler} style={{display:"flex",alignItems:"flex-end",justifyContent:"flex-end"}}>
+              <div className={classes.inputContainer}>
+            
+              <TextArea
+                id="comments"
+                placeholder="Enter comments for the post"
+                title="Comments"
+                required
+                rows={6}
+                ref={commentRef}
+                className={classes.post}
+                cols={80}
+              />
+            </div>
+            
+            <Button className={classes.btnPost}
+                    title="Post"
+                    style={{ marginRight: "10px" }}
+                  />
+            
+            </form>
               <div className={classes.actions}>
                 {isTrueSet && (
                   <Button

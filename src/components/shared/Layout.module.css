@@ -12,6 +12,7 @@ h1{
 .containerLogo{
     margin-left: 10px;
     height: 10vh;    
+    width: 10vh;
 }
 .containerNav{
     display: flex;
